@@ -1,6 +1,17 @@
 # Sales Analysis | Revenue, Trends and Insights
 Excel. SQL. Power BI Project | Sales data | From raw data to Business insight
 
+### Table of contents
+- [Project Overview](#project-overview)
+- [Tools $ Technologies](#tools--technologies)
+- [Dataset Overview](#dataset-overview)
+- [Data Cleaning Process](#data-cleaning-process)
+- [Exploratory Analysis](#exploratory-analysis)
+- [Power BI Dashboard](#power-bi-dashboard)
+- [Key Insight](#key-insights)
+- [Recommendations](#recommendations)
+- [Future Work](#future-work)
+
 ### Project overview
 This project analyse sales data to uncover trends in revenue, product performance, regional sales and profitability.
 Using Excel for transformation and Power BI for visualization, the project turns raw transaction record into actionable insights.
