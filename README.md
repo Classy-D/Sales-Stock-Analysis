@@ -13,10 +13,11 @@ Excel. SQL. Power BI Project | Sales data | From raw data to Business insight
 - [Future Work](#future-work)
 
 ### Project overview
-This project analyse sales data to uncover trends in revenue, product performance, regional sales and profitability.
+This project analyse sales data to uncover trends in revenue, product performance, regional sales and customer engagement.
 Using Excel for transformation and Power BI for visualization, the project turns raw transaction record into actionable insights.
 
 ### Tools and Technologies
+* SQL
 * Excel
 * Power BI
 
@@ -26,87 +27,93 @@ Transaction, Date,	Age, Location, Product ID, Product Name,	Category, Quantity,	
 
 ### Sample Preview     
 
-|	Date	| Age |	Location	| Product Name |	Category	| Quantity |	Shipping Method	|	Event	|	Customer Satisfaction |	Unit Price | Total Price	|	
+|	Date	| Age |	Location	| Product Name |	Category	| Quantity |	Shipping Method	|	Event	|	Customer Satisfaction |	Unit Price | Total Price |
 |------|-----|-----------|--------------|------------|----------|------------------|-------|-----------------------|------------|--------------|
 |11/01/2018|	58|	Prince Edward Island|	Toys_Product|	Toys	|4|	Standard|	None|	1	|48|	$194	|																
 |23/11/2022 |	26	|Nunavut|	Electronics_Product	|Electronics	|4|	Overnight|	Black Friday|	4|	77|	$309|																	
-|11/01/2018|	20	|New Brunswick|	Decorations_Product|	Decorations|	5	|Express|	Christmas Market|	3	|25|	$126|																	
+|11/01/2018|	20	|New Brunswick|	Decorations_Product|	Decorations|	5	|Express|	Christmas Market|	3	|25|	$126|		
+
 ### Data Cleaning Process
 - Converted Date to proper dateline format
 - Removed missing or invalid values 
 - Created new calculated fields:
-- Revenue = Quantity * Unit priice  
-- Profit_Margin 
+- Total price = Quantity * Unit priice   
 
 ### Exploratory Analysis (SQL)
-1. Monthly Revenue Trend
+1. Revenue by Product
 ```sql
-SELECT
-  DATE_TRUNC("nonth", Date) AS Month,
-  SUM(Quantity • Unit Price) AS Total_Revenue stock sales
-GROUP BY Month
-ORDER BY Month;
+SELECT 
+    product_name,
+    SUM(total_sales) AS total_revenue
+FROM sales_data
+GROUP BY product_name
+ORDER BY total_revenue DESC;
 ```
-2. Top 5 Products by Total Sales
+2. Sales by location
 ```sql
-SELECT
-  Product Nano,
-  SUM(Total Sales) AS Revenue
-FROM stock_sales
-GROUP BY Product None
-ORDER BY Revenue DESC
-LIMIT 5;
+SELECT 
+    location,
+    SUM(total_sales) AS total_sales,
+    SUM(quantity) AS total_quantity
+FROM sales_data
+GROUP BY location
+ORDER BY total_sales DESC;
 ```
-3. Revenue by Region
+3. Sales by Product Category
 ```sql
-SELECT
-Region,
-SUM(Total_Sales) AS Revenue
-FROM stock sales
-GROUP BY Region
-ORDER BY Revenue DESC;
+SELECT 
+    product_category,
+    SUM(total_sales) AS revenue,
+    AVG(unit_price) AS avg_price
+FROM sales_data
+GROUP BY product_category
+ORDER BY revenue DESC;
 ```
-Profitability by Category
+4. Shipping Method Analysis
 ```sql
-SELECT
-Category,
-SUM(Profit) AS Total Profit,<img width="1366" height="768" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/791e2deb-f949-478c-b11d-b5d5f7b5ef99" />
-<img width="1366" height="768" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/c90fcb3c-641a-49a8-8a94-3993cebf0c34" />
+SELECT 
+    shipping_method,
+    COUNT(*) AS number_of_orders,
+    SUM(total_sales) AS total_sales
+FROM sales_data
+GROUP BY shipping_method
+ORDER BY total_sales DESC;
+```
+5. Sales Trend Over Time
+```sql
+SELECT 
+    date,
+    SUM(total_sales) AS daily_sales
+FROM sales_data
+GROUP BY date
+ORDER BY date;
+```
 
-ROUND (SUM(Profit) / SUM(Units Sold * Unit Price), 2) AS Profit Margin
-FROM stock_sales
-GROUP BY Category;
-```
 ### Power BI Dashboard
 Power BI dashboard includes the following visuals:
 - 📈 Revenue and profit over tine
 - 🗺️ Regional sales performance
-- Best and worst-performing products
-- Monthly and quarterly growth trends
-- Profit margins by category
-- Interactive filters for product and region comparison Note: Dashboard screenshot on link can be added here.
-
-<img width="950" height="533" alt="Screenshot 2026-04-26 164059" src="https://github.com/user-attachments/assets/acc0d471-fe2e-4d50-ac1c-d3c853ffb1ad" />
+- 📊 Best and worst-performing products
+- 🚀 Monthly and quarterly growth trends
+- 💹 Profit margins by category
+- ⚖️ Interactive filters for product and region comparison
+  
+  <img width="925" height="516" alt="Screenshot 2026-04-28 235528" src="https://github.com/user-attachments/assets/2f87f90e-66ec-46a7-b2f7-0e818a2720dc" />
+  
+  <img width="911" height="510" alt="Screenshot 2026-04-29 000038" src="https://github.com/user-attachments/assets/1c2a1be0-1f5a-458b-a3d8-1e1ffb0ade50" />
 
 ### Key Insights
-1. The West region consistently generated the highest revenue.
-> US had the highest revenue
-2. Phones sold in large quantities but had lower profit margins.
-3. Profitability peaked during the fourth quarter due to seasonal sales.
-4. Some products with high units sold contributed less to total profit.
+1. According to this dataset, revenue was generated as follows:
+> Columbia generated the highest revenue.
+> Newfoundland and Labrador generated the least revenue
+2. In the product category:
+> Toys, Electronics and Food ranked the top 3 produt that generated sales
+3. Standard shipping method is the most used method of shipping products
+4. Most sales was made in 2023 and sales declined the most in 2019
 
 ### Recommendations
-* Shift focus to high-margin categorles such as laptops and accessories.
-* Revisit pricing strategles for low-margin but high-volume Items.
-* Apply successful regional strategies from the West to other underperforming areas.
-* Plan inventory and promotions ahead of the fourth quarter to maximize seasonal gains.
-
-### Future Work
-Integrate automated SQL reporting Into B1 tools
-Develop forecasting models using Python or Power B1
-Bullda web dashboard for self-service reporting (e.g., Streanitor Dash)
-
-Dataset Source
-
-[Download Dataset](https://github.com/Classy-D/Sales-Stock-Analysis/edit/main/README.md)
-(Google Drive)
+* Shift focus to high-margin categorles such as Toys, Electronics and food categories.
+* Revisit pricing strategles for low-margin but high-volume Items like Decorations and Cothing
+* Apply successful regional strategies to underperforming areas.
+* Plan inventory and promotions to maximize seasonal gains.
+*Improve product and service quality to increase the rate of customer satisfaction
