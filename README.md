@@ -10,7 +10,6 @@ Excel. SQL. Power BI Project | Sales data | From raw data to Business insight
 - [Power BI Dashboard](#power-bi-dashboard)
 - [Key Insight](#key-insights)
 - [Recommendations](#recommendations)
-- [Future Work](#future-work)
 
 ### Project overview
 This project analyse sales data to uncover trends in revenue, product performance, regional sales and customer engagement.
